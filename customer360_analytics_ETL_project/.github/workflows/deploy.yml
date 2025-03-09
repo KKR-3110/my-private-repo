@@ -26,6 +26,9 @@ jobs:
     - name:  create wheel file 
       run: python setup.py bdist_wheel
 
+    - name: Install dependencies 
+      run: pip install boto3
+
     - name: copy wheel file 
       run: aws s3 cp dist/customer_analytics-0.1.0-py3-none-any.whl s3://mybucket31101999/code/customer_analytics/
 
