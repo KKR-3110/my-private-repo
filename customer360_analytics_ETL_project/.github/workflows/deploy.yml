@@ -27,7 +27,7 @@ jobs:
       run: python setup.py bdist_wheel
 
     - name: copy wheel file 
-      run: aws s3 cp dist/customer_analytics-0.1.0-py3-none-any.whl s3://feb2025-training-bucket/code/customer_analytics/
+      run: aws s3 cp dist/customer_analytics-0.1.0-py3-none-any.whl s3://mybucket31101999/code/customer_analytics/
 
     - name: copy glue start script 
       run: aws s3 cp glue_upload_script s3://mybucket31101999/code/customer_analytics/ --recursive
