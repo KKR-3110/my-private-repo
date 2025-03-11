@@ -33,7 +33,7 @@ def run_etl():
         products_df =read_from_rds(spark,PRODUCT_MYSQL_URL,"Products")
 
         #common tranformation 
-        #top_customers=transform_sql()
+        top_customers=transform_sql()
         #top_customers=transform_dataframe(order_df,customer_df)
 
         write_to_s3(top_customers,s3_output_path)

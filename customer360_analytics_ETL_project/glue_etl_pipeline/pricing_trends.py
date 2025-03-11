@@ -122,7 +122,7 @@ def transform_dataframe(order_df,products_df,order_items_df):
             (order_items_df.quantity * order_items_df.unit_price).alias("sales_amount")
         )
 
-    historical_customer_sales_df=spark.read.parquet("s3://feb2025-training-bucket/RetailCustomer360/historical_sales_data")
+    historical_customer_sales_df=spark.read.parquet("s3://mybucket31101999/RetailCustomer360/historical_sales_data")
     #sales_data = sales_data.withColumn("order_year", year(col("order_date"))) .withColumn("order_month", month(col("order_date"))) 
     #historical_customer_sales_df.count()
     #sales_data = sales_data.union(historical_customer_sales_df)

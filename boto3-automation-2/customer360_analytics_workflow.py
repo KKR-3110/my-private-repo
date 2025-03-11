@@ -1,26 +1,27 @@
+
 import boto3
 
-# Initialize AWS Glue client for ap-south-1
-glue_client = boto3.client('glue', region_name='ap-south-1')
+# Initialize AWS Glue client for us-east-2
+glue_client = boto3.client('glue', region_name='us-east-2')
 
 # Global Configurations
 CRAWLER_NAME = "customer360_crawler"
 WORKFLOW_NAME = "Customer360_Analytics_Workflow"
-GLUE_ROLE_ARN = "arn:aws:iam::586794480834:role/GlueDevRole"
+GLUE_ROLE_ARN = "arn:aws:iam::509399637194:role/GlueDevRole"
 RDS_CONNECTION_NAME = "my-rds-mysql-connection"
 GLUE_DATABASE_NAME = "customer_analytics"
-S3_TARGET_PATH = ["s3://feb2025-training-bucket/analytics/"]
+S3_TARGET_PATH = ["s3://mybucket31101999/analytics/"]
 table_prefix = "customer_"
-PROJECT_LIB_PATH="s3://feb2025-training-bucket/code/customer_analytics/customer_analytics-0.1.0-py3-none-any.whl"
+PROJECT_LIB_PATH="s3://mybucket31101999/code/customer_analytics/customer_analytics-0.1.0-py3-none-any.whl"
 
 
 # Job Scripts in S3
 GLUE_JOBS = {
-    "purchase_behavior": "s3://feb2025-training-bucket/code/customer_analytics/purchase_behavior.py",
-    "churn_prediction": "s3://feb2025-training-bucket/code/customer_analytics/churn_prediction.py",
-    "omni_channel_engagement": "s3://feb2025-training-bucket/code/customer_analytics/omni_channel_engagement.py",
-    "fraud_detection": "s3://feb2025-training-bucket/code/customer_analytics/fraud_detection.py",
-    "pricing_trends": "s3://feb2025-training-bucket/code/customer_analytics/pricing_trends.py",
+    "purchase_behavior": "s3://mybucket31101999/code/customer_analytics/purchase_behavior.py",
+    "churn_prediction": "s3://mybucket31101999/code/customer_analytics/churn_prediction.py",
+    "omni_channel_engagement": "s3://mybucket31101999/code/customer_analytics/omni_channel_engagement.py",
+    "fraud_detection": "s3://mybucket31101999/code/customer_analytics/fraud_detection.py",
+    "pricing_trends": "s3://mybucket31101999/code/customer_analytics/pricing_trends.py",
 }
 
 
@@ -49,7 +50,7 @@ def create_glue_job(job_name, script_path):
         DefaultArguments={
            "--enable-glue-datacatalog": "true", 
            "--job-bookmark-option": "job-bookmark-enable",
-            "--TempDir": f"s3://feb2025-training-bucket/code/temp/{job_name}/",
+            "--TempDir": f"s3://mybucket31101999/code/temp/{job_name}/",
             "--S3_TARGET_PATH": S3_TARGET_PATH[0],
             "--extra-py-files": PROJECT_LIB_PATH ,
             "--job-language": "python"
@@ -107,7 +108,7 @@ def start_workflow(workflow_name):
 
 def delete_glue_workflow(workflow_name):
     """Deletes an AWS Glue Workflow and all associated triggers."""
-    glue_client = boto3.client("glue", region_name="ap-south-1")
+    glue_client = boto3.client("glue", region_name="us-east-2")
 
     try:
         # Delete workflow
@@ -124,7 +125,7 @@ from urllib.parse import urlparse
 
 def delete_glue_job(job_name, script_s3_path=None):
     """Deletes an AWS Glue Job and optionally deletes the script from S3."""
-    glue_client = boto3.client("glue", region_name="ap-south-1")
+    glue_client = boto3.client("glue", region_name="us-east-2")
     s3_client = boto3.client("s3")
 
     try:
@@ -141,7 +142,7 @@ import boto3
 
 def delete_glue_trigger(trigger_name, workflow_name, job_name, prev_job_name=None):
     """Deletes an AWS Glue Trigger linked to a workflow and job."""
-    glue_client = boto3.client("glue", region_name="ap-south-1")
+    glue_client = boto3.client("glue", region_name="us-east-2")
 
     try:
         # Delete Glue Trigger
@@ -155,7 +156,7 @@ def delete_glue_trigger(trigger_name, workflow_name, job_name, prev_job_name=Non
 
 def create_glue_starting_trigger(workflow_name, trigger_name, first_job):
     """Creates a starting trigger for an AWS Glue Workflow."""
-    glue_client = boto3.client("glue", region_name="ap-south-1")
+    glue_client = boto3.client("glue", region_name="us-east-2")
 
     try:
         response = glue_client.create_trigger(
@@ -171,7 +172,7 @@ def create_glue_starting_trigger(workflow_name, trigger_name, first_job):
 
 def delete_glue_workflow(workflow_name):
     """Deletes an AWS Glue Workflow and all associated triggers."""
-    glue_client = boto3.client("glue", region_name="ap-south-1")
+    glue_client = boto3.client("glue", region_name="us-east-2")
 
     try:
         # Delete workflow
@@ -197,7 +198,7 @@ def create_or_update_glue_crawler(crawler_name, role_arn, database_name, s3_targ
     :param s3_target_paths: List of S3 paths to crawl
     :param table_prefix: Prefix for tables created in the catalog
     """
-    glue_client = boto3.client("glue", region_name="ap-south-1")
+    glue_client = boto3.client("glue", region_name="us-east-2")
 
     targets = {"S3Targets": [{"Path": path} for path in s3_target_paths]}
 
@@ -232,7 +233,7 @@ def start_crawler(crawler_name):
     """
     Starts the AWS Glue Crawler to scan S3 data.
     """
-    glue_client = boto3.client("glue", region_name="ap-south-1")
+    glue_client = boto3.client("glue", region_name="us-east-2")
     
     print(f"🚀 Starting Glue Crawler: {crawler_name}")
     glue_client.start_crawler(Name=crawler_name)
@@ -280,8 +281,8 @@ def delete_workflow():
     delete_glue_workflow(WORKFLOW_NAME)
 
 def main():
-    create_workflow()
-    delete_workflow()
+       create_workflow()
+       #delete_workflow()
 
 
 

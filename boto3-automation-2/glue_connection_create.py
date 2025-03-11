@@ -1,7 +1,7 @@
 import boto3
 
 # Initialize Glue client
-glue_client = boto3.client("glue", region_name="ap-south-1")  # Change to your AWS region
+glue_client = boto3.client("glue", region_name="us-east-2")  # Change to your AWS region
 
 def create_glue_connection(connection_name, host, database, username, password, subnet_id, security_group_id, availability_zone):
     """
@@ -59,19 +59,19 @@ def test_glue_connection(connection_name):
 # Example Usage
 if __name__ == "__main__":
     connection_name = "my-rds-mysql-connection"
-    host = "rds-mysql-instance.clme2uykevt7.ap-south-1.rds.amazonaws.com"
+    host = "rds-mysql-instance.clg2yw2cyk43.us-east-2.rds.amazonaws.com"
     database = "MyDatabase"
     username = "admin"
-    password = "vmsKuOY~nk38|^l#~"  # Use AWS Secrets Manager instead of hardcoding
-    subnet_id = "subnet-0271b876d2e6860a8"  # Change this to your VPC Subnet ID
-    security_group_id = "sg-0dce78824436cd3b2"  # Change this to your Security Group ID
-    availability_zone = "ap-south-1c"  # Change to your RDS Availability Zone
+    password = "abcd1234"  # Use AWS Secrets Manager instead of hardcoding
+    subnet_id = "subnet-0e7a9504e56ad363d"  # Change this to your VPC Subnet ID
+    security_group_id = "sg-03c777c268a31e42b"  # Change this to your Security Group ID
+    availability_zone = "us-east-2b"  # Change to your RDS Availability Zone
 
     # Create Connection
-    create_glue_connection(connection_name, host, database, username, password, subnet_id, security_group_id, availability_zone)
+    #create_glue_connection(connection_name, host, database, username, password, subnet_id, security_group_id, availability_zone)
 
     # Delete Connection (Uncomment to delete)
-    # delete_glue_connection(connection_name)
+    #delete_glue_connection(connection_name)
     # Example Usage
 
     test_glue_connection(connection_name)

@@ -30,8 +30,8 @@ def run_etl():
     
     try:
         
-        df_cs=read_from_dynamodb(glueContext,"CustomerSupport","ap-south-1")
-        df=read_from_dynamodb(glueContext,"EnterpriseCampaigns","ap-south-1")
+        df_cs=read_from_dynamodb(glueContext,"CustomerSupport","us-east-2")
+        df=read_from_dynamodb(glueContext,"EnterpriseCampaigns","us-east-2")
        
         order_df =read_from_rds(spark,ORDER_MYSQL_URL,"Orders")
 
